@@ -1,6 +1,10 @@
 import hashlib
 import logging
-from src.document_sources.youtube import create_youtube_url
+
+from modelscope import snapshot_download
+from sentence_transformers import SentenceTransformer
+
+from backend.src.document_sources.youtube import create_youtube_url
 from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings
 from langchain_google_vertexai import VertexAIEmbeddings
 from langchain_openai import OpenAIEmbeddings
@@ -83,7 +87,18 @@ def create_graph_database_connection(uri, userName, password, database):
 
 
 def load_embedding_model(embedding_model_name: str):
-    if embedding_model_name == "openai":
+    if embedding_model_name.startswith("iic"):
+        local_dir = "../data/embedding/"
+        if not os.path.exists(local_dir):
+            model_dir = snapshot_download(embedding_model_name, local_dir=local_dir)
+        else:
+            model_dir = snapshot_download(embedding_model_name, local_files_only=True, local_dir=local_dir)
+
+        # embeddings = SentenceTransformerEmbeddings(model_name=model_dir, trust_remote_code=True)
+        embeddings = SentenceTransformerEmbeddings(model_name=model_dir)
+        dimension = 768
+        logging.info(f"Embedding: Using modelscope Embeddings{embedding_model_name} , Dimension:{dimension}")
+    elif embedding_model_name == "openai":
         embeddings = OpenAIEmbeddings()
         dimension = 1536
         logging.info(f"Embedding: Using OpenAI Embeddings , Dimension:{dimension}")
@@ -132,15 +147,50 @@ def get_llm(model_version:str) :
             }
         )
     elif "gpt" in model_version:
-        llm = ChatOpenAI(api_key=os.environ.get('OPENAI_API_KEY'), 
-                         model=model_version, 
-                         temperature=0)
-        
+        llm = ChatOpenAI(api_key=os.environ.get('OPENAI_API_KEY'),
+                         temperature=0.9)
+
+    elif "glm" in model_version:
+        llm = ChatOpenAI(api_key=os.environ.get('ZHIPUAI_API_KEY'),
+                         base_url=os.environ.get('ZHIPUAI_API_URL'),
+                         model="glm-4",
+                         # top_p=0.7,
+                         temperature=0.98)
+    elif "moonshot" in model_version:
+        llm = ChatOpenAI(api_key=os.environ.get('MOONSHOT_API_KEY'),
+                         base_url=os.environ.get('MOONSHOT_API_URL'),
+                         model="moonshot-v1-8k",
+                         top_p=0.7,
+                         temperature=0.95)
+    elif "Baichuan" in model_version:
+        llm = ChatOpenAI(api_key=os.environ.get('BAICHUAN_API_KEY'),
+                         base_url=os.environ.get('BAICHUAN_API_URL'),
+                         model="Baichuan4",
+                         top_p=0.7,
+                         temperature=0.95)
+    elif "yi-large" in model_version:
+        llm = ChatOpenAI(api_key=os.environ.get('LINGYIWANWU_API_KEY'),
+                         base_url=os.environ.get('LINGYIWANWU_API_URL'),
+                         model="yi-large",
+                         top_p=0.7,
+                         temperature=0.95)
+    elif "deepseek" in model_version:
+        llm = ChatOpenAI(api_key=os.environ.get('DEEPSEEK_API_KEY'),
+                         base_url=os.environ.get('DEEPSEEK_API_URL'),
+                         model="deepseek-chat",
+                         top_p=0.7,
+                         temperature=0.95)
+    elif "qwen" in model_version:
+        llm = ChatOpenAI(api_key=os.environ.get('QWEN_API_KEY'),
+                         base_url=os.environ.get('QWEN_API_URL'),
+                         model="qwen-long",
+                         top_p=0.7,
+                         temperature=0.95)
+
     elif "llama3" in model_version:
         llm = ChatGroq(api_key=os.environ.get('GROQ_API_KEY'),
                        temperature=0,
                        model_name=model_version)
-    
     else:
         llm = DiffbotGraphTransformer(diffbot_api_key=os.environ.get('DIFFBOT_API_KEY'))    
     logging.info(f"Model created - Model Version: {model_version}")

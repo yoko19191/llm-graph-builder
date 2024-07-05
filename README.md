@@ -10,6 +10,9 @@ You can use any [Neo4j Aura database](https://neo4j.com/aura/) (including the fr
 If you are using Neo4j Desktop, you will not be able to use the docker-compose but will have to follow the [separate deployment of backend and frontend section](#running-backend-and-frontend-separately-dev-environment). :warning:
 
 ### Deploy locally
+
+[中文版（chinese version)](./README_ZH.md)
+
 #### Running through docker-compose
 By default only OpenAI and Diffbot are enabled since Gemini requires extra GCP configurations.
 
@@ -58,7 +61,7 @@ Alternatively, you can run the backend and frontend separately:
 - For the frontend:
 1. Create the frontend/.env file by copy/pasting the frontend/example.env.
 2. Change values as needed
-3.
+   3.
     ```bash
     cd frontend
     yarn
@@ -68,7 +71,7 @@ Alternatively, you can run the backend and frontend separately:
 - For the backend:
 1. Create the backend/.env file by copy/pasting the backend/example.env.
 2. Change values as needed
-3.
+   3.
     ```bash
     cd backend
     python -m venv envName
@@ -132,38 +135,38 @@ Allow unauthenticated request : Yes
 
 #### extract_graph_from_file(uri, userName, password, file_path, model):
    Extracts nodes , relationships and properties from a PDF file leveraging LLM models.
-   
+
     Args:
-   	 uri: URI of the graph to extract
-   	 userName: Username to use for graph creation ( if None will use username from config file )
-   	 password: Password to use for graph creation ( if None will use password from config file )
-   	 file: File object containing the PDF file path to be used
-   	 model: Type of model to use ('Gemini Pro' or 'Diffbot')
-   
+     uri: URI of the graph to extract
+     userName: Username to use for graph creation ( if None will use username from config file )
+     password: Password to use for graph creation ( if None will use password from config file )
+     file: File object containing the PDF file path to be used
+     model: Type of model to use ('Gemini Pro' or 'Diffbot')
+       
      Returns: 
-   	 Json response to API with fileName, nodeCount, relationshipCount, processingTime, 
+     Json response to API with fileName, nodeCount, relationshipCount, processingTime, 
      status and model as attributes.
-     
+
 <img width="692" alt="neoooo" src="https://github.com/neo4j-labs/llm-graph-builder/assets/118245454/01e731df-b565-4f4f-b577-c47e39dd1748">
 
 #### create_source_node_graph(uri, userName, password, file):
 
    Creates a source node in Neo4jGraph and sets properties.
-   
+
     Args:
-   	 uri: URI of Graph Service to connect to
-   	 userName: Username to connect to Graph Service with ( default : None )
-   	 password: Password to connect to Graph Service with ( default : None )
-   	 file: File object with information about file to be added
-   
+     uri: URI of Graph Service to connect to
+     userName: Username to connect to Graph Service with ( default : None )
+     password: Password to connect to Graph Service with ( default : None )
+     file: File object with information about file to be added
+       
     Returns: 
-   	 Success or Failure message of node creation
+     Success or Failure message of node creation
 
 <img width="958" alt="neo_workspace" src="https://github.com/neo4j-labs/llm-graph-builder/assets/118245454/f2eb11cd-718c-453e-bec9-11410ec6e45d">
 
 
 #### get_source_list_from_graph():
-   
+
      Returns a list of file sources in the database by querying the graph and 
      sorting the list by the last updated date. 
 

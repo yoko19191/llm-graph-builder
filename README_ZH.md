@@ -10,7 +10,7 @@
 
   - [x] 以5.21.0版本为例，将插件[apoc-5.21.0-core.jar](https://github.com/neo4j/apoc/releases/download/5.21.0/apoc-5.21.0-core.jar)拷贝至neo4j安装目录中的plugins文件夹下，如图所示
 
-    <img src="asset/images/plugins.png" width="400" align="left">
+    <img src="asset/images/plugins.png" width="400">
     
     - [x] 启动neo4j  (启动命令在neo4j安装目录的bin文件夹中，因此切换到bin目录中)
     
@@ -38,7 +38,7 @@
         
       - 安装成功显示如下:
       
-        <img src="asset/images/apoc.png" width="400" align="left">
+        <img src="asset/images/apoc.png" width="400">
 ------
 
 
@@ -84,7 +84,7 @@ yarn run dev
 
 运行成功显示如下：
 
-<img src="asset/images/frontend.png" width="400" align="left">
+<img src="asset/images/frontend.png" width="400">
 
 使用浏览器访问
 
@@ -174,7 +174,7 @@ GCS_FILE_CACHE = "" #save the file into GCS or local, SHould be True or False
   - [x] 在pycharm或者vscode等ide中，运行score.py
 
 成功运行如下：
- <img src="./asset/images/backend.png" width="400" align="left">
+ <img src="./asset/images/backend.png" width="400">
 
 
 
@@ -185,7 +185,7 @@ GCS_FILE_CACHE = "" #save the file into GCS or local, SHould be True or False
 #### 6. 回到前端即可使用本项目:earth_africa:
 
 以上步骤顺利执行之后，即可回到前端进行操作
-<img src="./asset/images/index.png" align="left">
+<img src="./asset/images/index.png">
 
 
 

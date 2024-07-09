@@ -153,39 +153,46 @@ def get_llm(model_version:str) :
     elif "glm" in model_version:
         llm = ChatOpenAI(api_key=os.environ.get('ZHIPUAI_API_KEY'),
                          base_url=os.environ.get('ZHIPUAI_API_URL'),
-                         model="glm-4",
+                         model=model_version,
                          # top_p=0.7,
                          temperature=0.98)
     elif "moonshot" in model_version:
         llm = ChatOpenAI(api_key=os.environ.get('MOONSHOT_API_KEY'),
                          base_url=os.environ.get('MOONSHOT_API_URL'),
-                         model="moonshot-v1-8k",
+                         model=model_version,
                          top_p=0.7,
                          temperature=0.95)
     elif "Baichuan" in model_version:
         llm = ChatOpenAI(api_key=os.environ.get('BAICHUAN_API_KEY'),
                          base_url=os.environ.get('BAICHUAN_API_URL'),
-                         model="Baichuan4",
-                         top_p=0.7,
+                         model=model_version,
+                         # top_p=0.7,
                          temperature=0.95)
     elif "yi-large" in model_version:
         llm = ChatOpenAI(api_key=os.environ.get('LINGYIWANWU_API_KEY'),
                          base_url=os.environ.get('LINGYIWANWU_API_URL'),
-                         model="yi-large",
+                         model=model_version,
                          top_p=0.7,
                          temperature=0.95)
     elif "deepseek" in model_version:
         llm = ChatOpenAI(api_key=os.environ.get('DEEPSEEK_API_KEY'),
                          base_url=os.environ.get('DEEPSEEK_API_URL'),
-                         model="deepseek-chat",
+                         model=model_version,
                          top_p=0.7,
                          temperature=0.95)
     elif "qwen" in model_version:
         llm = ChatOpenAI(api_key=os.environ.get('QWEN_API_KEY'),
                          base_url=os.environ.get('QWEN_API_URL'),
-                         model="qwen-long",
+                         model=model_version,
                          top_p=0.7,
                          temperature=0.95)
+    elif "Doubao" in model_version:
+        llm = ChatOpenAI(api_key=os.environ.get('DOUBAO_API_KEY'),
+                         base_url=os.environ.get('DOUBAO_API_URL'),
+                         model=os.environ.get('ENDPOINT_ID'),
+                         # top_p=0.7,
+                         # temperature=0.95
+                         )
 
     elif "llama3" in model_version:
         llm = ChatGroq(api_key=os.environ.get('GROQ_API_KEY'),

@@ -173,3 +173,4 @@ sentence-transformers
 google-cloud-logging==3.10.0
 PyMuPDF==1.24.5
 modelscope==1.15.0
+volcengine-python-sdk[ark]

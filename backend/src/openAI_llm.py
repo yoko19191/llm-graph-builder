@@ -20,13 +20,14 @@ def get_graph_from_OpenAI(model_version, graph, chunkId_chunkDoc_list, allowedNo
     
     llm = get_llm(model_version)
     p_template = ChatPromptTemplate.from_messages([
-        ("user", "你是知识图谱抽取工具，帮我抽取实体和关系")
+        ("user", "你是知识图谱抽取工具，帮我抽取实体和关系,具体要求如下：......")
     ])
 
     llm_transformer = LLMGraphTransformer(llm=llm,
                                           node_properties=["description"],
                                           allowed_nodes=allowedNodes,
                                           allowed_relationships=allowedRelationship,
+                                          # prompt=p_template,
                                           )
     
     with ThreadPoolExecutor(max_workers=10) as executor:

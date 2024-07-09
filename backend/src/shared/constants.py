@@ -12,8 +12,9 @@ MODEL_VERSIONS = {
         "深度求索": "deepseek-chat",
         "零一万物": "yi-large",
         "通义千问": "qwen-long",
+        "豆包": "Doubao-pro-32k",
          }
-OPENAI_MODELS = ["gpt-3.5", "gpt-4o",'智谱',"百川","月之暗面","深度求索","零一万物","通义千问"]
+OPENAI_MODELS = ["gpt-3.5", "gpt-4o",'智谱',"百川","月之暗面","深度求索","零一万物","通义千问","豆包"]
 GEMINI_MODELS = ["gemini-1.0-pro", "gemini-1.5-pro"]
 CHAT_MAX_TOKENS = 1000
 CHAT_SEARCH_KWARG_K = 3

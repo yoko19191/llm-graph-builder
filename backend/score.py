@@ -1,13 +1,15 @@
-from fastapi import FastAPI, File, UploadFile, Form, Query
-from fastapi import FastAPI
-from fastapi import FastAPI, File, UploadFile, Form, Body
+from typing import Annotated, Dict
+
+from fastapi import File, UploadFile, Form, Body
 from fastapi import FastAPI, Request
 from fastapi_health import health
 from fastapi.middleware.cors import CORSMiddleware
+from volcenginesdkarkruntime import Ark
+
+from src.llm_api_request import ChatRequest
 from src.main import *
 # from src.QA_integration import *
 from src.QA_integration_new import *
-from src.entities.user_credential import user_credential
 from src.shared.common_fn import *
 import uvicorn
 import asyncio
@@ -20,14 +22,9 @@ from src.graph_query import get_graph_results
 from src.chunkid_entities import get_entities_from_chunkids
 from sse_starlette.sse import EventSourceResponse
 import json
-from typing import List, Mapping
-from fastapi.responses import RedirectResponse, HTMLResponse
 from starlette.middleware.sessions import SessionMiddleware
-import google_auth_oauthlib.flow
 from google.oauth2.credentials import Credentials
 import os
-from typing import List
-from google.cloud import logging as gclogger
 from src.logger import CustomLogger
 from datetime import datetime
 import time
@@ -511,5 +508,32 @@ async def populate_graph_schema(input_text=Form(None), model=Form(None), is_sche
         logging.exception(f'Exception in getting the schema from text:{error_message}')
         return create_api_response(job_status, message=message, error=error_message)
 
+
+@app.post("/doubao/v1/chat/completions")
+def generate_text(chat_request: Annotated[ChatRequest, Body()])->Dict:
+    client = Ark(
+        base_url="https://ark.cn-beijing.volces.com/api/v3",
+        api_key=os.environ["DOUBAO_API_KEY"],
+    )
+    response = client.chat.completions.create(
+        model=chat_request.model,
+        messages=[m.model_dump() for m in chat_request.messages],
+        frequency_penalty=chat_request.frequency_penalty,
+        logit_bias=chat_request.logit_bias,
+        logprobs=chat_request.logprobs,
+        max_tokens=chat_request.max_tokens,
+        presence_penalty=chat_request.presence_penalty,
+        stop=chat_request.stop,
+        stream=chat_request.stream,
+        stream_options=chat_request.stream_options,
+        tools=chat_request.tools,
+        top_logprobs=chat_request.top_logprobs,
+        top_p=chat_request.top_p,
+        temperature=chat_request.temperature,
+        user=chat_request.user,
+    )
+
+    return response.dict()
+
 if __name__ == "__main__":
-    uvicorn.run(app)
+    uvicorn.run(app, port=int(os.environ['TCP_PORT']))

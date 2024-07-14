@@ -226,5 +226,60 @@
       "RESULTED_IN"
     ],
     "schema": "healthcare"
+  },
+  {
+    "labels":[
+      "Author",
+      "Book",
+      "Chapter",
+      "Genre",
+      "Theme",
+      "Event",
+      "Peroid",
+      "Relationship",
+      "Symbol"
+    ],
+    "relationshipTypes":[
+      "WROTE", 
+      "MAIN_CHARACTER", 
+      "SUPPORTING_CHARACTER", 
+      "FAMILY_RELATION", 
+      "FRIEND_RELATION", 
+      "LOVE_RELATION", 
+      "HOSTILE_RELATION", 
+      "OCCURS_DURING", 
+      "FORESHADOWS", 
+      "CAUSES", 
+      "REPRESENTS", 
+      "EXPLORES"
+    ],
+    "schema":"novel"
+  },
+  {
+    "labels": [
+      "Document",
+      "Agency", 
+      "Person",
+      "Organization",
+      "Location",
+      "Date",
+      "Law",
+      "Regulation",
+      "Policy"
+    ],
+    "relationshipTypes": [
+      "ISSUED_BY",
+      "SIGNED_BY", 
+      "ADDRESSED_TO",
+      "REFERENCES",
+      "AMENDS",
+      "LOCATION_OF",
+      "EFFECTIVE_ON",
+      "EXPIRES_ON",
+      "RELATES_TO",
+      "AUTHORIZES",
+      "RESTRICTS"
+    ],
+    "schema": "official_document"
   }
 ]

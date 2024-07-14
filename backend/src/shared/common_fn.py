@@ -4,7 +4,7 @@ import logging
 from modelscope import snapshot_download
 from sentence_transformers import SentenceTransformer
 
-from backend.src.document_sources.youtube import create_youtube_url
+#from backend.src.document_sources.youtube import create_youtube_url
 from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings
 from langchain_google_vertexai import VertexAIEmbeddings
 from langchain_openai import OpenAIEmbeddings
@@ -31,9 +31,10 @@ def check_url_source(source_type, yt_url:str=None, wiki_query:str=None):
       logging.info(f"incoming URL: {yt_url}")
       if source_type == 'youtube':
         if re.match('(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([\w\-_]+)\&?',yt_url.strip()):
-          youtube_url = create_youtube_url(yt_url.strip())
-          logging.info(youtube_url)
-          return youtube_url,language
+          #youtube_url = create_youtube_url(yt_url.strip())
+          #logging.info(youtube_url)
+          #return youtube_url,language
+          return None
         else:
           raise Exception('Incoming URL is not youtube URL')
       
